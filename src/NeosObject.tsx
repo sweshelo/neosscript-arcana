@@ -4,6 +4,7 @@ import { generateId } from "lib/core/util";
 import NeosType from "lib/core/types/NeosType";
 import DVSlot from "lib/dv/DVSlot";
 import { ArcanaType } from "lib/Arcana/types";
+import List from "List";
 
 /*
  *  Arcana Object
@@ -50,10 +51,42 @@ export default () => {
         <DVSlot name="Unit"
           valueVariables={[
             { type: NeosType.Bool, name: "IsActive", value: true },
+            { type: NeosType.Bool, name: "IsCopied", value: false},
             { type: NeosType.Int, name: "BaseBP", value: 0 }, // 基本BP
           ]}
           referenceVariables={[
             { type: NeosType.Slot, name: "Card", value: null }, // カードデータから参照する
+          ]}
+        >
+
+          { /* TODO : children count + onchange で子要素の変動を検知して常時BP再計算/キーワード効果の付与と除去を行う */ }
+          <Slot name="Keywords" />
+          <Slot name="Timelines" />
+        </DVSlot>
+
+        { /* ある効果がいつまで持続するかを記録するSlot */ }
+        { /* [End]Eventに遭遇するたびに[Count]の値が-1される */ }
+        { /* [Count]の値が0になるとそのスロットを削除し効果が終了する */ }
+        { /* [Event]の値がArcanaType.EffectForTimeline.GiveKeywordのときはReference先のSlotを削除してから自身を削除 */ }
+
+        { /* 以下は戦闘終了時までBPを+3000する例 */ }
+        <DVSlot name="Timeline"
+          valueVariables={[
+            { type: NeosType.Int, name: "End", value: ArcanaType.Event.OnBattleEnd },
+            { type: NeosType.Int, name: "Count", value: 1 },
+            { type: NeosType.Int, name: "Event", value: ArcanaType.EffectForTimeline.ChangeBP },
+            { type: NeosType.Int, name: "Value", value: 3000}
+          ]}
+          referenceVariables={[
+            { type: NeosType.Slot, name: "Reference", value: null } // EventがArcanaType.EffectForTimeline.GiveKeywordのとき、対象のKeyword DVSlot
+          ]}
+        />
+
+        { /* キーワード能力の保持を示すSlot */ }
+        <DVSlot name="Keyword"
+          valueVariables={[
+            { type: NeosType.Int, name: "KeywordNumber", value: 1 },
+            { type: NeosType.Int, name: "OptionalValue", value: 2 /* 次元干渉のみ使用 */ },
           ]}
         />
       </Slot>
@@ -79,22 +112,7 @@ export default () => {
         </Slot>
         <Slot name="Cards">
           {/* Card 記述例サンプル */}
-          <DVSlot name="C00001"
-            valueVariables={[
-              { type: NeosType.String, name: "Name", value: 'ブラッドハウンド' },
-              { type: NeosType.String, name: "Text", value: '■ダメージブレイク\nこのユニットがオーバークロックした時、対戦相手のユニットを１体選ぶ。それに４０００ダメージを与える。' },
-              { type: NeosType.Int, name: "Cost", value: 0 },
-              { type: NeosType.Int, name: "CardType", value: ArcanaType.CardType.Unit },
-              { type: NeosType.Int, name: "Color", value: ArcanaType.Color.Red },
-              { type: NeosType.Int, name: "Species1", value: ArcanaType.Species.獣 },
-              { type: NeosType.Int, name: "Species2", value: ArcanaType.Species.Null },
-              { type: NeosType.Int3, name: "BP", value: [3000, 4000, 5000] },
-            ]}
-          >
-            <Slot name="LogiX">
-              <Slot name={ArcanaType.Event.OnOverClock} />
-            </Slot>
-          </DVSlot>
+          <List></List>
         </Slot>
       </Slot>
     </Slot>

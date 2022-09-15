@@ -4,7 +4,11 @@ export const ArcanaType = {
     Unit: 1,
     Evoluve: 2,
     Intercept: 3,
-    Trigger: 4
+    Trigger: 4,
+    unit: 1,
+    advanced_unit: 2,
+    intercept: 3,
+    trigger: 4
   },
   Species: {
     Null: 0,
@@ -40,6 +44,12 @@ export const ArcanaType = {
     Blue: 3,
     Green: 4,
     Purple: 5,
+    無属性: 0,
+    赤属性: 1,
+    黄属性: 2,
+    青属性: 3,
+    緑属性: 4,
+    紫属性: 5,
   },
   Event: {
     Joker: 'Joker',
@@ -61,6 +71,12 @@ export const ArcanaType = {
     OnHandDestraction: 'OnHandDestraction',
     OnCPIncrease: 'OnCPIncrease',
     OnJoker: 'OnJoker',
+  },
+  EffectForTimeline: {
+    ChangeBP: 0,
+    LockCard: 1,
+    SkipEffects: 2,
+    GiveKeyword: 3,
   },
   Keyword: {
     スピードムーブ: 1,
