@@ -1,9 +1,9 @@
 import React from "react";
-import Slot from "lib/core/Slot";
-import NeosType from "lib/core/types/NeosType";
+import Slot from "lib/neosscript/core/Slot";
+import NeosType from "lib/neosscript/core/types/NeosType";
 import DVSlot from "lib/dv/DVSlot";
 import { ArcanaType } from "lib/Arcana/types";
-import DynamicVariableSpace from "lib/core/components/Data/Dynamic/DynamicVariableSpace";
+import DynamicVariableSpace from "lib/neosscript/core/components/Data/Dynamic/DynamicVariableSpace";
 
 export default () => {
   return(
