@@ -1,7 +1,6 @@
 import React from "react";
-import Slot from "lib/core/Slot";
-import { generateId } from "lib/core/util";
-import NeosType from "lib/core/types/NeosType";
+import Slot from "lib/neosscript/core/Slot";
+import NeosType from "lib/neosscript/core/types/NeosType";
 import DVSlot from "lib/dv/DVSlot";
 import { ArcanaType } from "lib/Arcana/types";
 import List from "List";
